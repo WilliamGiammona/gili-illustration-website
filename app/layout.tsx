@@ -28,12 +28,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex flex-col items-center w-full ">
+          <div className="flex flex-col items-center w-full">
             {/* Logo Section */}
-
-            <div className="w-full flex justify-center items-center ">
-              <Link href="/" className="flex items-center ">
-                <div className=" flex items-center justify-center -m-16">
+            <div className="w-full flex justify-center items-center">
+              <Link href="/" className="flex items-center">
+                <div className="flex items-center justify-center -m-16">
                   <Image
                     src="/images/Logos/GiliLogo.jpg"
                     alt="Gili Giammona Logo"
@@ -46,32 +45,50 @@ export default function RootLayout({
             </div>
 
             {/* Navigation Section */}
-
-            {/* Navigation Section */}
             <div className="w-full">
               <nav className="flex justify-center items-center gap-8 pt-4 pb-12">
                 <Menubar className="border-none bg-transparent">
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity">
-                      <Link href="/">Work</Link>
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                      <Link
+                        href="/"
+                        className="w-full h-full px-3 py-1.5 inline-block"
+                      >
+                        Work
+                      </Link>
                     </MenubarTrigger>
                   </MenubarMenu>
 
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity">
-                      <Link href="/clients">Clients</Link>
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                      <Link
+                        href="/clients"
+                        className="w-full h-full px-3 py-1.5 inline-block"
+                      >
+                        Clients
+                      </Link>
                     </MenubarTrigger>
                   </MenubarMenu>
 
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity">
-                      <Link href="/about">About</Link>
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                      <Link
+                        href="/about"
+                        className="w-full h-full px-3 py-1.5 inline-block"
+                      >
+                        About
+                      </Link>
                     </MenubarTrigger>
                   </MenubarMenu>
 
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity">
-                      <Link href="/contact">Contact</Link>
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                      <Link
+                        href="/contact"
+                        className="w-full h-full px-3 py-1.5 inline-block"
+                      >
+                        Contact
+                      </Link>
                     </MenubarTrigger>
                   </MenubarMenu>
 
@@ -82,6 +99,7 @@ export default function RootLayout({
                 </Menubar>
               </nav>
             </div>
+
             {/* Main Content */}
             <main className="w-full">{children}</main>
           </div>
