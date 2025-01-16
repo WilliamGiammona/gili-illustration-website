@@ -38,18 +38,18 @@ export default function RootLayout({
                     alt="Gili Giammona Logo"
                     width={200}
                     height={200}
-                    className="w-72 h-72 object-contain dark:invert"
+                    className="w-72 h-72 object-contain dark:invert dark:pointer-events-none"
                   />
                 </div>
               </Link>
             </div>
 
             {/* Navigation Section */}
-            <div className="w-full">
+            <div className="w-full relative z-10">
               <nav className="flex justify-center items-center gap-8 pt-4 pb-12">
                 <Menubar className="border-none bg-transparent">
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 dark:hover:opacity-70 transition-opacity p-0">
                       <Link
                         href="/"
                         className="w-full h-full px-3 py-1.5 inline-block"
@@ -60,7 +60,7 @@ export default function RootLayout({
                   </MenubarMenu>
 
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 dark:hover:opacity-70 transition-opacity p-0">
                       <Link
                         href="/clients"
                         className="w-full h-full px-3 py-1.5 inline-block"
@@ -71,7 +71,7 @@ export default function RootLayout({
                   </MenubarMenu>
 
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 dark:hover:opacity-70 transition-opacity p-0">
                       <Link
                         href="/about"
                         className="w-full h-full px-3 py-1.5 inline-block"
@@ -82,7 +82,7 @@ export default function RootLayout({
                   </MenubarMenu>
 
                   <MenubarMenu>
-                    <MenubarTrigger className="font-normal text-base hover:opacity-70 transition-opacity p-0">
+                    <MenubarTrigger className="font-normal text-base hover:opacity-70 dark:hover:opacity-70 transition-opacity p-0">
                       <Link
                         href="/contact"
                         className="w-full h-full px-3 py-1.5 inline-block"
