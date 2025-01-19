@@ -70,159 +70,175 @@ const Page = () => {
       {/* Main content */}
       <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl">
         {initialView && (
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <div
-              onClick={handleDaughterImageClick}
-              className="w-full sm:w-96 h-96 cursor-pointer"
-            >
-              <Image
-                src="/images/clients/DaughterHuggingPillow.jpg"
-                alt="Daughter Hugging Pillow"
-                width={300}
-                height={300}
-                className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-                priority
-              />
-            </div>
-            <div
-              onClick={handleCoverCardClick}
-              className="w-full sm:w-96 h-96 cursor-pointer"
-            >
-              <Image
-                src="/images/clients/FrontDisplayCoverCard.jpg"
-                alt="Front Display Cover Card"
-                width={300}
-                height={300}
-                className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-              />
-            </div>
-          </div>
-        )}
-
-        {showDaughterCards && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {daughterCards.map((card) => (
+          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
+            <div className="flex flex-col items-center gap-4">
               <div
-                key={card.src}
-                onClick={() => handleImageClick(card.src)}
-                className="w-full h-96 cursor-pointer"
+                onClick={handleDaughterImageClick}
+                className="w-full sm:w-96 h-96 cursor-pointer"
               >
                 <Image
-                  src={card.src}
-                  alt={card.alt}
+                  src="/images/clients/DaughterHuggingPillow.jpg"
+                  alt="Daughter Hugging Pillow"
+                  width={300}
+                  height={300}
+                  className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                  priority
+                />
+              </div>
+              <h3 className="text-lg font-medium">Liron Kol Rega</h3>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+              <div
+                onClick={handleCoverCardClick}
+                className="w-full sm:w-96 h-96 cursor-pointer"
+              >
+                <Image
+                  src="/images/clients/FrontDisplayCoverCard.jpg"
+                  alt="Front Display Cover Card"
                   width={300}
                   height={300}
                   className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
                 />
               </div>
-            ))}
+              <h3 className="text-lg font-medium">Shahar Sinai</h3>
+            </div>
           </div>
         )}
 
+        {showDaughterCards && (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              {daughterCards.map((card) => (
+                <div
+                  key={card.src}
+                  onClick={() => handleImageClick(card.src)}
+                  className="w-full h-96 cursor-pointer"
+                >
+                  <Image
+                    src={card.src}
+                    alt={card.alt}
+                    width={300}
+                    height={300}
+                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+            <h2 className="text-2xl font-semibold text-center mt-4">
+              Liron Kol Rega
+            </h2>
+          </>
+        )}
+
         {showCoverCards && (
-          <div className="flex flex-col gap-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* CardPencilHold with its writing */}
-              <div className="flex flex-col gap-4">
-                <div
-                  onClick={() =>
-                    handleImageClick("/images/clients/CardPencilHold.jpg")
-                  }
-                  className="w-full h-96 cursor-pointer"
-                >
-                  <Image
-                    src="/images/clients/CardPencilHold.jpg"
-                    alt="Card Pencil Hold"
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-                  />
+          <>
+            <div className="flex flex-col gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* CardPencilHold with its writing */}
+                <div className="flex flex-col gap-4">
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/CardPencilHold.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/CardPencilHold.jpg"
+                      alt="Card Pencil Hold"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleImageClick(
+                        "/images/clients/WritingCardPencilHold.jpg"
+                      )
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/WritingCardPencilHold.jpg"
+                      alt="Writing for Card Pencil Hold"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
                 </div>
-                <div
-                  onClick={() =>
-                    handleImageClick(
-                      "/images/clients/WritingCardPencilHold.jpg"
-                    )
-                  }
-                  className="w-full h-96 cursor-pointer"
-                >
-                  <Image
-                    src="/images/clients/WritingCardPencilHold.jpg"
-                    alt="Writing for Card Pencil Hold"
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-                  />
-                </div>
-              </div>
 
-              {/* CardSitting with its writing */}
-              <div className="flex flex-col gap-4">
-                <div
-                  onClick={() =>
-                    handleImageClick("/images/clients/CardSitting.jpg")
-                  }
-                  className="w-full h-96 cursor-pointer"
-                >
-                  <Image
-                    src="/images/clients/CardSitting.jpg"
-                    alt="Card Sitting"
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-                  />
+                {/* CardSitting with its writing */}
+                <div className="flex flex-col gap-4">
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/CardSitting.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/CardSitting.jpg"
+                      alt="Card Sitting"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/WritingCardSitting.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/WritingCardSitting.jpg"
+                      alt="Writing for Card Sitting"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
                 </div>
-                <div
-                  onClick={() =>
-                    handleImageClick("/images/clients/WritingCardSitting.jpg")
-                  }
-                  className="w-full h-96 cursor-pointer"
-                >
-                  <Image
-                    src="/images/clients/WritingCardSitting.jpg"
-                    alt="Writing for Card Sitting"
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-                  />
-                </div>
-              </div>
 
-              {/* CoverBoxBack with FrontDisplayCoverCard */}
-              <div className="flex flex-col gap-4">
-                <div
-                  onClick={() =>
-                    handleImageClick("/images/clients/CoverBoxBack.jpg")
-                  }
-                  className="w-full h-96 cursor-pointer"
-                >
-                  <Image
-                    src="/images/clients/CoverBoxBack.jpg"
-                    alt="Cover Box Back"
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-                  />
-                </div>
-                <div
-                  onClick={() =>
-                    handleImageClick(
-                      "/images/clients/FrontDisplayCoverCard.jpg"
-                    )
-                  }
-                  className="w-full h-96 cursor-pointer"
-                >
-                  <Image
-                    src="/images/clients/FrontDisplayCoverCard.jpg"
-                    alt="Front Display Cover Card"
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
-                  />
+                {/* CoverBoxBack with FrontDisplayCoverCard */}
+                <div className="flex flex-col gap-4">
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/CoverBoxBack.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/CoverBoxBack.jpg"
+                      alt="Cover Box Back"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleImageClick(
+                        "/images/clients/FrontDisplayCoverCard.jpg"
+                      )
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/FrontDisplayCoverCard.jpg"
+                      alt="Front Display Cover Card"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+            <h2 className="text-2xl font-semibold text-center mt-8">
+              Shahar Sinai
+            </h2>
+          </>
         )}
       </div>
 
@@ -231,12 +247,6 @@ const Page = () => {
           <br />
           <p>(Click Me)</p>
         </>
-      )}
-
-      {(!showCoverCards || showDaughterCards) && (
-        <h2 className="text-2xl font-semibold text-center mt-8">
-          Liron Kol Rega
-        </h2>
       )}
 
       {/* Modal */}
