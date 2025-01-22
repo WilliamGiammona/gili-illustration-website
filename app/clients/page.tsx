@@ -15,7 +15,7 @@ const Page = () => {
 
   const daughterCards: BaseCard[] = [
     {
-      src: "/images/clients/DaughterHuggingPillow.jpg",
+      src: "/images/clients/DaughterHuggingPillowNoText.jpg",
       alt: "Daughter Hugging Pillow",
     },
     {
@@ -54,13 +54,13 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-[calc(100vh-180px)] py-8">
+    <div className="flex flex-col items-center min-h-[calc(100vh-180px)] py-8 ">
       {/* Back button */}
       {!initialView && (
-        <div className="mb-8 w-full text-center">
+        <div className="mb-8 w-full text-center ">
           <button
             onClick={resetToInitialView}
-            className="text-foreground hover:opacity-70 transition-opacity"
+            className="text-foreground hover:opacity-70 transition-opacity "
           >
             ← Back
           </button>
@@ -68,20 +68,20 @@ const Page = () => {
       )}
 
       {/* Main content */}
-      <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl">
+      <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl ">
         {initialView && (
-          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
-            <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
+            <div className="flex flex-col items-center gap-4 px-">
               <div
                 onClick={handleDaughterImageClick}
-                className="w-full sm:w-96 h-96 cursor-pointer"
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem]  cursor-pointer "
               >
                 <Image
                   src="/images/clients/DaughterHuggingPillow.jpg"
                   alt="Daughter Hugging Pillow"
                   width={300}
                   height={300}
-                  className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                  className="rounded-lg shadow-lg w-full h-full object-cover transition-transform hover:scale-105"
                   priority
                 />
               </div>
@@ -90,14 +90,14 @@ const Page = () => {
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleCoverCardClick}
-                className="w-full sm:w-96 h-96 cursor-pointer"
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem]  cursor-pointer"
               >
                 <Image
                   src="/images/clients/FrontDisplayCoverCard.jpg"
                   alt="Front Display Cover Card"
                   width={300}
                   height={300}
-                  className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                  className="rounded-lg shadow-lg w-full h-full object-cover transition-transform hover:scale-105"
                 />
               </div>
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
