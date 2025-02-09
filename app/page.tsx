@@ -4,20 +4,12 @@ import Image from "next/image";
 
 const Home = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const illustrations = [
+    // First column
     {
       src: "/images/illustrations/ToriiGate.jpg",
       alt: "Torii Gate",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/Nobara.jpg",
-      alt: "Nobara",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/CookieandCreatures.jpg",
-      alt: "Cookie and Creatures",
       className: "",
     },
     {
@@ -30,16 +22,38 @@ const Home = () => {
       alt: "Luca",
       className: "",
     },
+
     {
       src: "/images/illustrations/Skeleton.jpg",
       alt: "Skeleton",
       className: "",
     },
+
+    {
+      src: "/images/illustrations/CreaturesSmall.jpg",
+      alt: "Creatures",
+      className: "",
+    },
+
+    // Second column
+    {
+      src: "/images/illustrations/CookieandCreatures.jpg",
+      alt: "Cookie and Creatures",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/Nobara.jpg",
+      alt: "Nobara",
+      className: "",
+    },
+
     {
       src: "/images/illustrations/SpiritedAway.jpg",
       alt: "Spirited Away",
       className: "",
     },
+
+    // Third column
   ];
 
   return (
