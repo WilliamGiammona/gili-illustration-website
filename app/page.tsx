@@ -22,13 +22,11 @@ const Home = () => {
       alt: "Luca",
       className: "",
     },
-
     {
       src: "/images/illustrations/Skeleton.jpg",
       alt: "Skeleton",
       className: "",
     },
-
     {
       src: "/images/illustrations/CreaturesSmall.jpg",
       alt: "Creatures",
@@ -46,14 +44,22 @@ const Home = () => {
       alt: "Nobara",
       className: "",
     },
-
     {
       src: "/images/illustrations/SpiritedAway.jpg",
       alt: "Spirited Away",
       className: "",
     },
 
-    // Third column
+    {
+      src: "/images/illustrations/black-and-white-pagoda.png",
+      alt: "Black and White Pagoda",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/pagoda_red.png",
+      alt: "Red Pagoda",
+      className: "",
+    },
   ];
 
   return (
