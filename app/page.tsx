@@ -60,6 +60,11 @@ const Home = () => {
       alt: "Red Pagoda",
       className: "",
     },
+    {
+      src: "/images/illustrations/GiliUpdatedPagoda.png",
+      alt: "Gili Updated Pagoda",
+      className: "",
+    },
   ];
 
   return (
