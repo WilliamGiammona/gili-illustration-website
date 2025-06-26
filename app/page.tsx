@@ -6,7 +6,6 @@ const Home = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const illustrations = [
-    // First column
     {
       src: "/images/illustrations/ToriiGate.jpg",
       alt: "Torii Gate",
@@ -17,36 +16,34 @@ const Home = () => {
       alt: "Setting Sun",
       className: "",
     },
+
     {
-      src: "/images/illustrations/Luca.jpg",
-      alt: "Luca",
+      src: "/images/illustrations/Nobara.jpg",
+      alt: "Nobara",
       className: "",
     },
+
+    {
+      src: "/images/illustrations/GiliUpdatedPagoda.png",
+      alt: "Updated Pagoda",
+      className: "",
+    },
+
     {
       src: "/images/illustrations/Skeleton.jpg",
       alt: "Skeleton",
       className: "",
     },
+
     {
       src: "/images/illustrations/CreaturesSmall.jpg",
       alt: "Creatures",
       className: "",
     },
 
-    // Second column
     {
-      src: "/images/illustrations/CookieandCreatures.jpg",
-      alt: "Cookie and Creatures",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/Nobara.jpg",
-      alt: "Nobara",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/SpiritedAway.jpg",
-      alt: "Spirited Away",
+      src: "/images/illustrations/Luca.jpg",
+      alt: "Luca",
       className: "",
     },
 
@@ -55,14 +52,22 @@ const Home = () => {
       alt: "Black and White Pagoda",
       className: "",
     },
+
     {
       src: "/images/illustrations/pagoda_red.png",
       alt: "Red Pagoda",
       className: "",
     },
+
     {
-      src: "/images/illustrations/GiliUpdatedPagoda.png",
-      alt: "Gili Updated Pagoda",
+      src: "/images/illustrations/CookieandCreatures.jpg",
+      alt: "Cookie and Creatures",
+      className: "",
+    },
+
+    {
+      src: "/images/illustrations/SpiritedAway.jpg",
+      alt: "Spirited Away",
       className: "",
     },
   ];
