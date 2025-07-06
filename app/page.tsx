@@ -83,7 +83,7 @@ const Home = () => {
     {
       src: "/images/illustrations/GiliUpdatedPagoda.png",
       alt: "Updated Pagoda",
-      className: "scale-y-[2]",
+      className: "",
     },
     {
       src: "/images/illustrations/Nobara.jpg",
