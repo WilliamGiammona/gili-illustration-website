@@ -5,6 +5,7 @@ import Image from "next/image";
 const Home = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -142,7 +143,10 @@ const Home = () => {
           <div
             key={illustration.src}
             className="relative group mb-2 sm:mb-4 md:mb-6 lg:mb-8 break-inside-avoid"
-            onClick={() => setSelectedImage(illustration.src)}
+            onClick={() => {
+              setSelectedImage(illustration.src);
+              setIsLoading(true);
+            }}
           >
             {/* Image wrapper with enhanced hover effects */}
             <div className="transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
@@ -168,6 +172,13 @@ const Home = () => {
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-2 sm:p-4 md:p-6"
           onClick={() => setSelectedImage(null)}
         >
+          {/* Loading spinner */}
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+            </div>
+          )}
+
           <div
             className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[95vh] sm:max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
@@ -179,6 +190,7 @@ const Home = () => {
               height={800}
               className="rounded-lg shadow-xl object-contain max-h-[95vh] sm:max-h-[90vh]"
               priority
+              onLoad={() => setIsLoading(false)}
             />
             {/* Enhanced close button with better mobile tap target */}
             <button
