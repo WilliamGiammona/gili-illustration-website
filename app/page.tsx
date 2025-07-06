@@ -14,19 +14,19 @@ const Home = () => {
     {
       src: "/images/illustrations/SettingSun.jpg",
       alt: "Setting Sun",
-      className: "",
+      className: "sm:order-2 order-4",
     },
 
     {
       src: "/images/illustrations/Nobara.jpg",
       alt: "Nobara",
-      className: "",
+      className: "order-3",
     },
 
     {
       src: "/images/illustrations/GiliUpdatedPagoda.png",
       alt: "Updated Pagoda",
-      className: "",
+      className: " sm:order-4 order-2",
     },
 
     {
@@ -76,28 +76,37 @@ const Home = () => {
     <div className="min-h-screen p-2 sm:p-4 md:p-8 lg:p-12 relative">
       {/* Container with improved responsive margins and max-width */}
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8 w-full max-w-7xl mx-auto">
-        {illustrations.map((illustration) => (
-          <div
-            key={illustration.src}
-            className="relative group mb-2 sm:mb-4 md:mb-6 lg:mb-8 break-inside-avoid"
-            onClick={() => setSelectedImage(illustration.src)}
-          >
-            {/* Image wrapper with enhanced hover effects */}
-            <div className="transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
-              <Image
-                src={illustration.src}
-                alt={illustration.alt}
-                width={0}
-                height={0}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="w-full h-auto object-cover rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl"
-                priority={illustration.src.includes("ToriiGate")}
-              />
-              {/* Enhanced hover overlay */}
-              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg cursor-pointer" />
+        <div className="flex flex-col sm:contents">
+          {illustrations.map((illustration) => (
+            <div
+              key={illustration.src}
+              className="relative group mb-2 sm:mb-4 md:mb-6 lg:mb-8 break-inside-avoid"
+              onClick={() => setSelectedImage(illustration.src)}
+            >
+              {/* Image wrapper with enhanced hover effects */}
+              <div className="transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
+                <Image
+                  src={illustration.src}
+                  alt={illustration.alt}
+                  width={0}
+                  height={0}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className={`w-full h-auto object-cover rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl ${
+                    illustration.className.includes("scale")
+                      ? illustration.className
+                          .split(" ")
+                          .filter((c) => c.includes("scale"))
+                          .join(" ")
+                      : ""
+                  }`}
+                  priority={illustration.src.includes("ToriiGate")}
+                />
+                {/* Enhanced hover overlay */}
+                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg cursor-pointer" />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Enhanced Modal with better mobile handling */}
