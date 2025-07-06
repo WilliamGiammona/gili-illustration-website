@@ -1,11 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 const Home = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const illustrations = [
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const illustrationsDesktop = [
     {
       src: "/images/illustrations/ToriiGate.jpg",
       alt: "Torii Gate",
@@ -14,57 +25,48 @@ const Home = () => {
     {
       src: "/images/illustrations/SettingSun.jpg",
       alt: "Setting Sun",
-      className: "sm:order-2 order-4",
+      className: "",
     },
-
     {
       src: "/images/illustrations/Nobara.jpg",
       alt: "Nobara",
-      className: "order-3",
+      className: "",
     },
-
     {
       src: "/images/illustrations/GiliUpdatedPagoda.png",
       alt: "Updated Pagoda",
-      className: " sm:order-4 order-2",
+      className: "",
     },
-
     {
       src: "/images/illustrations/Skeleton.jpg",
       alt: "Skeleton",
       className: "",
     },
-
     {
       src: "/images/illustrations/CreaturesSmall.jpg",
       alt: "Creatures",
       className: "",
     },
-
     {
       src: "/images/illustrations/Luca.jpg",
       alt: "Luca",
       className: "",
     },
-
     {
       src: "/images/illustrations/black-and-white-pagoda.png",
       alt: "Black and White Pagoda",
       className: "",
     },
-
     {
       src: "/images/illustrations/pagoda_red.png",
       alt: "Red Pagoda",
       className: "",
     },
-
     {
       src: "/images/illustrations/CookieandCreatures.jpg",
       alt: "Cookie and Creatures",
       className: "",
     },
-
     {
       src: "/images/illustrations/SpiritedAway.jpg",
       alt: "Spirited Away",
@@ -72,41 +74,92 @@ const Home = () => {
     },
   ];
 
+  const illustrationsMobile = [
+    {
+      src: "/images/illustrations/ToriiGate.jpg",
+      alt: "Torii Gate",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/GiliUpdatedPagoda.png",
+      alt: "Updated Pagoda",
+      className: "scale-y-[2]",
+    },
+    {
+      src: "/images/illustrations/Nobara.jpg",
+      alt: "Nobara",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/SettingSun.jpg",
+      alt: "Setting Sun",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/Skeleton.jpg",
+      alt: "Skeleton",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/CreaturesSmall.jpg",
+      alt: "Creatures",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/Luca.jpg",
+      alt: "Luca",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/black-and-white-pagoda.png",
+      alt: "Black and White Pagoda",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/pagoda_red.png",
+      alt: "Red Pagoda",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/CookieandCreatures.jpg",
+      alt: "Cookie and Creatures",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/SpiritedAway.jpg",
+      alt: "Spirited Away",
+      className: "",
+    },
+  ];
+
+  const illustrations = isMobile ? illustrationsMobile : illustrationsDesktop;
+
   return (
     <div className="min-h-screen p-2 sm:p-4 md:p-8 lg:p-12 relative">
       {/* Container with improved responsive margins and max-width */}
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8 w-full max-w-7xl mx-auto">
-        <div className="flex flex-col sm:contents">
-          {illustrations.map((illustration) => (
-            <div
-              key={illustration.src}
-              className="relative group mb-2 sm:mb-4 md:mb-6 lg:mb-8 break-inside-avoid"
-              onClick={() => setSelectedImage(illustration.src)}
-            >
-              {/* Image wrapper with enhanced hover effects */}
-              <div className="transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
-                <Image
-                  src={illustration.src}
-                  alt={illustration.alt}
-                  width={0}
-                  height={0}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className={`w-full h-auto object-cover rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl ${
-                    illustration.className.includes("scale")
-                      ? illustration.className
-                          .split(" ")
-                          .filter((c) => c.includes("scale"))
-                          .join(" ")
-                      : ""
-                  }`}
-                  priority={illustration.src.includes("ToriiGate")}
-                />
-                {/* Enhanced hover overlay */}
-                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg cursor-pointer" />
-              </div>
+        {illustrations.map((illustration) => (
+          <div
+            key={illustration.src}
+            className="relative group mb-2 sm:mb-4 md:mb-6 lg:mb-8 break-inside-avoid"
+            onClick={() => setSelectedImage(illustration.src)}
+          >
+            {/* Image wrapper with enhanced hover effects */}
+            <div className="transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
+              <Image
+                src={illustration.src}
+                alt={illustration.alt}
+                width={0}
+                height={0}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className={`w-full h-auto object-cover rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl ${illustration.className}`}
+                priority={illustration.src.includes("ToriiGate")}
+              />
+              {/* Enhanced hover overlay */}
+              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg cursor-pointer" />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       {/* Enhanced Modal with better mobile handling */}
