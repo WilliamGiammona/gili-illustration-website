@@ -1,175 +1,260 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
-const Home = () => {
+interface BaseCard {
+  src: string;
+  alt: string;
+}
+
+const Page = () => {
+  const [showDaughterCards, setShowDaughterCards] = useState(false);
+  const [showCoverCards, setShowCoverCards] = useState(false);
+  const [initialView, setInitialView] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  const illustrationsDesktop = [
+  const daughterCards: BaseCard[] = [
     {
-      src: "/images/illustrations/ToriiGate.jpg",
-      alt: "Torii Gate",
-      className: "",
+      src: "/images/clients/DaughterHuggingPillowNoText.jpg",
+      alt: "Daughter Hugging Pillow",
     },
     {
-      src: "/images/illustrations/SettingSun.jpg",
-      alt: "Setting Sun",
-      className: "",
+      src: "/images/clients/MomHuggingDaughter.jpg",
+      alt: "Mom Hugging Daughter",
     },
     {
-      src: "/images/illustrations/Nobara.jpg",
-      alt: "Nobara",
-      className: "",
+      src: "/images/clients/MomKissingDaughter.jpg",
+      alt: "Mom Kissing Daughter",
     },
     {
-      src: "/images/illustrations/GiliUpdatedPagoda.png",
-      alt: "Updated Pagoda",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/Skeleton.jpg",
-      alt: "Skeleton",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/CreaturesSmall.jpg",
-      alt: "Creatures",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/Luca.jpg",
-      alt: "Luca",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/black-and-white-pagoda.png",
-      alt: "Black and White Pagoda",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/pagoda_red.png",
-      alt: "Red Pagoda",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/CookieandCreatures.jpg",
-      alt: "Cookie and Creatures",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/SpiritedAway.jpg",
-      alt: "Spirited Away",
-      className: "",
+      src: "/images/clients/DaughterThinking.jpg",
+      alt: "Daughter Thinking",
     },
   ];
 
-  const illustrationsMobile = [
-    {
-      src: "/images/illustrations/ToriiGate.jpg",
-      alt: "Torii Gate",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/GiliUpdatedPagoda.png",
-      alt: "Updated Pagoda",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/Nobara.jpg",
-      alt: "Nobara",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/SettingSun.jpg",
-      alt: "Setting Sun",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/Skeleton.jpg",
-      alt: "Skeleton",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/CreaturesSmall.jpg",
-      alt: "Creatures",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/Luca.jpg",
-      alt: "Luca",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/black-and-white-pagoda.png",
-      alt: "Black and White Pagoda",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/pagoda_red.png",
-      alt: "Red Pagoda",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/CookieandCreatures.jpg",
-      alt: "Cookie and Creatures",
-      className: "",
-    },
-    {
-      src: "/images/illustrations/SpiritedAway.jpg",
-      alt: "Spirited Away",
-      className: "",
-    },
-  ];
+  const handleDaughterImageClick = () => {
+    setShowDaughterCards(true);
+    setInitialView(false);
+  };
 
-  const illustrations = isMobile ? illustrationsMobile : illustrationsDesktop;
+  const handleCoverCardClick = () => {
+    setShowCoverCards(true);
+    setInitialView(false);
+  };
+
+  const handleImageClick = (src: string) => {
+    setSelectedImage(src);
+    setIsLoading(true);
+  };
+
+  const resetToInitialView = () => {
+    setShowDaughterCards(false);
+    setShowCoverCards(false);
+    setInitialView(true);
+    setSelectedImage(null);
+  };
 
   return (
-    <div className="min-h-screen p-2 sm:p-4 md:p-8 lg:p-12 relative">
-      {/* Container with improved responsive margins and max-width */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8 w-full max-w-7xl mx-auto">
-        {illustrations.map((illustration) => (
-          <div
-            key={illustration.src}
-            className="relative group mb-2 sm:mb-4 md:mb-6 lg:mb-8 break-inside-avoid"
-            onClick={() => {
-              setSelectedImage(illustration.src);
-              setIsLoading(true);
-            }}
+    <div className="flex flex-col items-center min-h-[calc(100vh-180px)] py-8 ">
+      {/* Back button */}
+      {!initialView && (
+        <div className="mb-8 w-full text-center ">
+          <button
+            onClick={resetToInitialView}
+            className="text-foreground hover:opacity-70 transition-opacity "
           >
-            {/* Image wrapper with enhanced hover effects */}
-            <div className="transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
-              <Image
-                src={illustration.src}
-                alt={illustration.alt}
-                width={0}
-                height={0}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className={`w-full h-auto object-cover rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl ${illustration.className}`}
-                priority={illustration.src.includes("ToriiGate")}
-              />
-              {/* Enhanced hover overlay */}
-              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg cursor-pointer" />
+            ← Back
+          </button>
+        </div>
+      )}
+
+      {/* Main content */}
+      <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl ">
+        {initialView && (
+          <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
+            <div className="flex flex-col items-center gap-4 px-">
+              <div
+                onClick={handleDaughterImageClick}
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem]  cursor-pointer "
+              >
+                <Image
+                  src="/images/clients/DaughterHuggingPillow.jpg"
+                  alt="Daughter Hugging Pillow"
+                  width={300}
+                  height={300}
+                  className="rounded-lg shadow-lg w-full h-full object-cover transition-transform hover:scale-105"
+                  priority
+                />
+              </div>
+              <h3 className="text-lg font-medium">Liron Kol Rega</h3>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+              <div
+                onClick={handleCoverCardClick}
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem]  cursor-pointer"
+              >
+                <Image
+                  src="/images/clients/FrontDisplayCoverCard.jpg"
+                  alt="Front Display Cover Card"
+                  width={300}
+                  height={300}
+                  className="rounded-lg shadow-lg w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
           </div>
-        ))}
+        )}
+
+        {showDaughterCards && (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              {daughterCards.map((card) => (
+                <div
+                  key={card.src}
+                  onClick={() => handleImageClick(card.src)}
+                  className="w-full h-96 cursor-pointer"
+                >
+                  <Image
+                    src={card.src}
+                    alt={card.alt}
+                    width={300}
+                    height={300}
+                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+            <h2 className="text-2xl font-semibold text-center mt-4">
+              Liron Kol Rega
+            </h2>
+          </>
+        )}
+
+        {showCoverCards && (
+          <>
+            <div className="flex flex-col gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* CardPencilHold with its writing */}
+                <div className="flex flex-col gap-4">
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/CardPencilHold.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/CardPencilHold.jpg"
+                      alt="Card Pencil Hold"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleImageClick(
+                        "/images/clients/WritingCardPencilHold.jpg"
+                      )
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/WritingCardPencilHold.jpg"
+                      alt="Writing for Card Pencil Hold"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                </div>
+
+                {/* CardSitting with its writing */}
+                <div className="flex flex-col gap-4">
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/CardSitting.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/CardSitting.jpg"
+                      alt="Card Sitting"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/WritingCardSitting.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/WritingCardSitting.jpg"
+                      alt="Writing for Card Sitting"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                </div>
+
+                {/* CoverBoxBack with FrontDisplayCoverCard */}
+                <div className="flex flex-col gap-4">
+                  <div
+                    onClick={() =>
+                      handleImageClick("/images/clients/CoverBoxBack.jpg")
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/CoverBoxBack.jpg"
+                      alt="Cover Box Back"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      handleImageClick(
+                        "/images/clients/FrontDisplayCoverCard.jpg"
+                      )
+                    }
+                    className="w-full h-96 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/clients/FrontDisplayCoverCard.jpg"
+                      alt="Front Display Cover Card"
+                      width={300}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2 className="text-2xl font-semibold text-center mt-8">
+              Shahar Sinai
+            </h2>
+          </>
+        )}
       </div>
 
-      {/* Enhanced Modal with better mobile handling */}
+      {initialView && (
+        <>
+          <br />
+          <p>(Click Me)</p>
+        </>
+      )}
+
+      {/* Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-2 sm:p-4 md:p-6"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
           {/* Loading spinner */}
@@ -188,15 +273,12 @@ const Home = () => {
               alt="Selected illustration"
               width={1200}
               height={800}
-              className="rounded-lg shadow-xl object-contain max-h-[95vh] sm:max-h-[90vh]"
-              priority
+              className="rounded-lg shadow-xl object-contain max-h-[90vh]"
               onLoad={() => setIsLoading(false)}
             />
-            {/* Enhanced close button with better mobile tap target */}
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
-              aria-label="Close modal"
             >
               ✕
             </button>
@@ -207,4 +289,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Page;
