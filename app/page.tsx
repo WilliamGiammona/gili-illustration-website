@@ -73,6 +73,21 @@ const Home = () => {
       alt: "Spirited Away",
       className: "",
     },
+    {
+      src: "/images/illustrations/Village_one.png",
+      alt: "Village One",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/Village_two.png",
+      alt: "Village Two",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/everybody_ethiopia_finale.jpg",
+      alt: "Everybody Ethiopia Finale",
+      className: "",
+    },
   ];
 
   const illustrationsMobile = [
@@ -129,6 +144,21 @@ const Home = () => {
     {
       src: "/images/illustrations/SpiritedAway.jpg",
       alt: "Spirited Away",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/Village_one.png",
+      alt: "Village One",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/Village_two.png",
+      alt: "Village Two",
+      className: "",
+    },
+    {
+      src: "/images/illustrations/everybody_ethiopia_finale.jpg",
+      alt: "Everybody Ethiopia Finale",
       className: "",
     },
   ];
