@@ -10,6 +10,7 @@ interface BaseCard {
 const Page = () => {
   const [showDaughterCards, setShowDaughterCards] = useState(false);
   const [showCoverCards, setShowCoverCards] = useState(false);
+  const [showVillageCards, setShowVillageCards] = useState(false); // NEW
   const [initialView, setInitialView] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,9 +28,16 @@ const Page = () => {
       src: "/images/clients/MomKissingDaughter.jpg",
       alt: "Mom Kissing Daughter",
     },
+    { src: "/images/clients/DaughterThinking.jpg", alt: "Daughter Thinking" },
+  ];
+
+  // NEW group for Village images (order as requested)
+  const villageCards: BaseCard[] = [
+    { src: "/images/clients/Village_one.png", alt: "Village One" },
+    { src: "/images/clients/Village_two.png", alt: "Village Two" },
     {
-      src: "/images/clients/DaughterThinking.jpg",
-      alt: "Daughter Thinking",
+      src: "/images/clients/everybody_ethiopia_finale.jpg",
+      alt: "Everybody Ethiopia Finale",
     },
   ];
 
@@ -43,6 +51,12 @@ const Page = () => {
     setInitialView(false);
   };
 
+  // NEW
+  const handleVillageCardClick = () => {
+    setShowVillageCards(true);
+    setInitialView(false);
+  };
+
   const handleImageClick = (src: string) => {
     setSelectedImage(src);
     setIsLoading(true);
@@ -51,18 +65,19 @@ const Page = () => {
   const resetToInitialView = () => {
     setShowDaughterCards(false);
     setShowCoverCards(false);
+    setShowVillageCards(false); // NEW
     setInitialView(true);
     setSelectedImage(null);
   };
 
   return (
-    <div className="flex flex-col items-center min-h-[calc(100vh-180px)] py-8 ">
+    <div className="flex flex-col items-center min-h-[calc(100vh-180px)] py-8">
       {/* Back button */}
       {!initialView && (
-        <div className="mb-8 w-full text-center ">
+        <div className="mb-8 w-full text-center">
           <button
             onClick={resetToInitialView}
-            className="text-foreground hover:opacity-70 transition-opacity "
+            className="text-foreground hover:opacity-70 transition-opacity"
           >
             ← Back
           </button>
@@ -70,13 +85,14 @@ const Page = () => {
       )}
 
       {/* Main content */}
-      <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl ">
+      <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl">
         {initialView && (
           <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            <div className="flex flex-col items-center gap-4 px-">
+            {/* 1) Daughter set */}
+            <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleDaughterImageClick}
-                className="w-full sm:w-96 sm:h-96 md:h-[30rem]  cursor-pointer "
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer"
               >
                 <Image
                   src="/images/clients/DaughterHuggingPillow.jpg"
@@ -89,10 +105,12 @@ const Page = () => {
               </div>
               <h3 className="text-lg font-medium">Liron Kol Rega</h3>
             </div>
+
+            {/* 2) Card/cover set */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleCoverCardClick}
-                className="w-full sm:w-96 sm:h-96 md:h-[30rem]  cursor-pointer"
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer"
               >
                 <Image
                   src="/images/clients/FrontDisplayCoverCard.jpg"
@@ -104,9 +122,27 @@ const Page = () => {
               </div>
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
+
+            {/* 3) NEW Village set */}
+            <div className="flex flex-col items-center gap-4">
+              <div
+                onClick={handleVillageCardClick}
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer"
+              >
+                <Image
+                  src="/images/clients/Village_one.png"
+                  alt="Village Cover"
+                  width={300}
+                  height={300}
+                  className="rounded-lg shadow-lg w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+              <h3 className="text-lg font-medium">Liron Kol Rega</h3>
+            </div>
           </div>
         )}
 
+        {/* Daughter grid */}
         {showDaughterCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -132,6 +168,7 @@ const Page = () => {
           </>
         )}
 
+        {/* Cover/lettering grid */}
         {showCoverCards && (
           <>
             <div className="flex flex-col gap-8">
@@ -242,14 +279,33 @@ const Page = () => {
             </h2>
           </>
         )}
-      </div>
 
-      {initialView && (
-        <>
-          <br />
-          <p>(Click Me)</p>
-        </>
-      )}
+        {/* NEW: Village grid */}
+        {showVillageCards && (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+              {villageCards.map((card) => (
+                <div
+                  key={card.src}
+                  onClick={() => handleImageClick(card.src)}
+                  className="w-full h-96 cursor-pointer"
+                >
+                  <Image
+                    src={card.src}
+                    alt={card.alt}
+                    width={300}
+                    height={300}
+                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+            <h2 className="text-2xl font-semibold text-center mt-4">
+              Liron Kol Rega
+            </h2>
+          </>
+        )}
+      </div>
 
       {/* Modal */}
       {selectedImage && (
@@ -257,7 +313,6 @@ const Page = () => {
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
-          {/* Loading spinner */}
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
