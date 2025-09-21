@@ -10,7 +10,7 @@ interface BaseCard {
 const Page = () => {
   const [showDaughterCards, setShowDaughterCards] = useState(false);
   const [showCoverCards, setShowCoverCards] = useState(false);
-  const [showVillageCards, setShowVillageCards] = useState(false); // NEW
+  const [showVillageCards, setShowVillageCards] = useState(false);
   const [initialView, setInitialView] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,6 @@ const Page = () => {
     { src: "/images/clients/DaughterThinking.jpg", alt: "Daughter Thinking" },
   ];
 
-  // NEW group for Village images (order as requested)
   const villageCards: BaseCard[] = [
     { src: "/images/clients/Village_one.png", alt: "Village One" },
     { src: "/images/clients/Village_two.png", alt: "Village Two" },
@@ -51,7 +50,6 @@ const Page = () => {
     setInitialView(false);
   };
 
-  // NEW
   const handleVillageCardClick = () => {
     setShowVillageCards(true);
     setInitialView(false);
@@ -65,14 +63,13 @@ const Page = () => {
   const resetToInitialView = () => {
     setShowDaughterCards(false);
     setShowCoverCards(false);
-    setShowVillageCards(false); // NEW
+    setShowVillageCards(false);
     setInitialView(true);
     setSelectedImage(null);
   };
 
   return (
     <div className="flex flex-col items-center min-h-[calc(100vh-180px)] py-8">
-      {/* Back button */}
       {!initialView && (
         <div className="mb-8 w-full text-center">
           <button
@@ -84,11 +81,9 @@ const Page = () => {
         </div>
       )}
 
-      {/* Main content */}
       <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl">
         {initialView && (
           <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            {/* 1) Daughter set */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleDaughterImageClick}
@@ -106,7 +101,6 @@ const Page = () => {
               <h3 className="text-lg font-medium">Liron Kol Rega</h3>
             </div>
 
-            {/* 2) Card/cover set */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleCoverCardClick}
@@ -123,7 +117,6 @@ const Page = () => {
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
 
-            {/* 3) NEW Village set */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleVillageCardClick}
@@ -142,7 +135,6 @@ const Page = () => {
           </div>
         )}
 
-        {/* Daughter grid */}
         {showDaughterCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -168,12 +160,10 @@ const Page = () => {
           </>
         )}
 
-        {/* Cover/lettering grid */}
         {showCoverCards && (
           <>
             <div className="flex flex-col gap-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* CardPencilHold with its writing */}
                 <div className="flex flex-col gap-4">
                   <div
                     onClick={() =>
@@ -207,7 +197,6 @@ const Page = () => {
                   </div>
                 </div>
 
-                {/* CardSitting with its writing */}
                 <div className="flex flex-col gap-4">
                   <div
                     onClick={() =>
@@ -239,7 +228,6 @@ const Page = () => {
                   </div>
                 </div>
 
-                {/* CoverBoxBack with FrontDisplayCoverCard */}
                 <div className="flex flex-col gap-4">
                   <div
                     onClick={() =>
@@ -280,7 +268,6 @@ const Page = () => {
           </>
         )}
 
-        {/* NEW: Village grid */}
         {showVillageCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -307,10 +294,9 @@ const Page = () => {
         )}
       </div>
 
-      {/* Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
           {isLoading && (
@@ -323,14 +309,16 @@ const Page = () => {
             className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[95vh] sm:max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={selectedImage}
-              alt="Selected illustration"
-              width={1200}
-              height={800}
-              className="rounded-lg shadow-xl object-contain max-h-[90vh]"
-              onLoad={() => setIsLoading(false)}
-            />
+            <div className="bg-white rounded-lg shadow-xl">
+              <Image
+                src={selectedImage}
+                alt="Selected illustration"
+                width={1200}
+                height={800}
+                className="rounded-lg object-contain max-h-[90vh]"
+                onLoad={() => setIsLoading(false)}
+              />
+            </div>
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
