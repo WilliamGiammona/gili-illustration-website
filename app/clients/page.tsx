@@ -138,7 +138,7 @@ const Page = () => {
                 className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer bg-white dark:bg-neutral-100 ring-1 ring-black/10 dark:ring-white/10 rounded-lg"
               >
                 <Image
-                  src="/images/clients/Village_one.png"
+                  src="/images/clients/Village_one_update.png"
                   alt="Village Cover"
                   width={300}
                   height={300}
