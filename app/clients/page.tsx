@@ -49,6 +49,10 @@ const Page = () => {
   const isEthiopiaFinale = (src: string | null) =>
     !!src && /\/everybody_ethiopia_finale\.jpg$/i.test(src);
 
+  // Ethiopia grid thumbnails: fill the 4:3 frame without top/bottom bars for the two PNGs
+  const isWideVillageThumb = (src: string) =>
+    /\/(Village_one\.png|Village_two\.png)$/i.test(src);
+
   const handleDaughterImageClick = () => {
     setShowDaughterCards(true);
     setInitialView(false);
@@ -131,7 +135,7 @@ const Page = () => {
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
 
-            {/* 3) NEW Village set (UNCHANGED) */}
+            {/* 3) NEW Village set (cover uses the updated image only here) */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleVillageCardClick}
@@ -288,7 +292,7 @@ const Page = () => {
           </>
         )}
 
-        {/* NEW: Village grid (UNCHANGED) */}
+        {/* NEW: Village grid (ONLY change is the object-fit per image) */}
         {showVillageCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -302,7 +306,11 @@ const Page = () => {
                     src={card.src}
                     alt={card.alt}
                     fill
-                    className="object-contain transition-transform hover:scale-105"
+                    className={`${
+                      isWideVillageThumb(card.src)
+                        ? "object-cover"
+                        : "object-contain"
+                    } transition-transform hover:scale-105`}
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     priority={false}
                   />
