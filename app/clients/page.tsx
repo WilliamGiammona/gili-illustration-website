@@ -7,20 +7,16 @@ interface BaseCard {
   alt: string;
 }
 
-/** Shared thumbnail/card wrapper to keep images visible in dark mode */
+/** Reusable frame: light card + ring (helps in dark mode) */
 const Thumb: React.FC<
   React.PropsWithChildren<{ className?: string; onClick?: () => void }>
 > = ({ className = "", onClick, children }) => (
   <div
     onClick={onClick}
     className={[
-      // base sizing is supplied by parent; this wrapper only handles visuals
       "overflow-hidden rounded-lg shadow-lg",
-      // subtle ring to separate from page
       "ring-1 ring-black/10 dark:ring-white/10",
-      // light backdrop only in dark mode to counter PNG transparency
       "bg-white/0 dark:bg-neutral-100",
-      // smooth hover scale like before
       "transition-transform hover:scale-105",
       className,
     ].join(" ")}
@@ -66,12 +62,10 @@ const Page = () => {
     setShowDaughterCards(true);
     setInitialView(false);
   };
-
   const handleCoverCardClick = () => {
     setShowCoverCards(true);
     setInitialView(false);
   };
-
   const handleVillageCardClick = () => {
     setShowVillageCards(true);
     setInitialView(false);
@@ -92,7 +86,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col items-center min-h-[calc(100vh-180px)] py-8">
-      {/* Back button */}
+      {/* Back */}
       {!initialView && (
         <div className="mb-8 w-full text-center">
           <button
@@ -104,65 +98,71 @@ const Page = () => {
         </div>
       )}
 
-      {/* Main content */}
       <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl">
+        {/* ========== INITIAL HERO ROW (uniform boxes, fill with object-cover) ========== */}
         {initialView && (
-          <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
+          <div className="flex flex-col lg:flex-row gap-8 justify-center items-start">
             {/* 1) Daughter set */}
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-4 w-full sm:w-96">
               <Thumb
                 onClick={handleDaughterImageClick}
-                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer"
+                className="w-full cursor-pointer"
               >
-                <Image
-                  src="/images/clients/DaughterHuggingPillow.jpg"
-                  alt="Daughter Hugging Pillow"
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover"
-                  priority
-                />
+                <div className="w-full h-96 md:h-[30rem]">
+                  <Image
+                    src="/images/clients/DaughterHuggingPillow.jpg"
+                    alt="Daughter Hugging Pillow"
+                    width={1200}
+                    height={900}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                </div>
               </Thumb>
               <h3 className="text-lg font-medium">Liron Kol Rega</h3>
             </div>
 
-            {/* 2) Card/cover set */}
-            <div className="flex flex-col items-center gap-4">
+            {/* 2) Cover set */}
+            <div className="flex flex-col items-center gap-4 w-full sm:w-96">
               <Thumb
                 onClick={handleCoverCardClick}
-                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer"
+                className="w-full cursor-pointer"
               >
-                <Image
-                  src="/images/clients/FrontDisplayCoverCard.jpg"
-                  alt="Front Display Cover Card"
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-full h-96 md:h-[30rem]">
+                  <Image
+                    src="/images/clients/FrontDisplayCoverCard.jpg"
+                    alt="Front Display Cover Card"
+                    width={1200}
+                    height={900}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </Thumb>
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
 
             {/* 3) Village set */}
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-4 w-full sm:w-96">
               <Thumb
                 onClick={handleVillageCardClick}
-                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer"
+                className="w-full cursor-pointer"
               >
-                <Image
-                  src="/images/clients/Village_one.png"
-                  alt="Village Cover"
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-full h-96 md:h-[30rem]">
+                  <Image
+                    src="/images/clients/Village_one.png"
+                    alt="Village Cover"
+                    width={1200}
+                    height={900}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </Thumb>
               <h3 className="text-lg font-medium">Liron Kol Rega</h3>
             </div>
           </div>
         )}
 
-        {/* Daughter grid */}
+        {/* ========== DAUGHTER GRID (preserve aspect; no fixed height) ========== */}
         {showDaughterCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -170,14 +170,14 @@ const Page = () => {
                 <Thumb
                   key={card.src}
                   onClick={() => handleImageClick(card.src)}
-                  className="w-full h-96 cursor-pointer"
+                  className="w-full cursor-pointer"
                 >
                   <Image
                     src={card.src}
                     alt={card.alt}
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-contain"
+                    width={1200}
+                    height={900}
+                    className="w-full h-auto object-contain"
                   />
                 </Thumb>
               ))}
@@ -188,25 +188,24 @@ const Page = () => {
           </>
         )}
 
-        {/* Cover/lettering grid */}
+        {/* ========== COVER GRID (preserve aspect) ========== */}
         {showCoverCards && (
           <>
             <div className="flex flex-col gap-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* CardPencilHold with its writing */}
                 <div className="flex flex-col gap-4">
                   <Thumb
                     onClick={() =>
                       handleImageClick("/images/clients/CardPencilHold.jpg")
                     }
-                    className="w-full h-96 cursor-pointer"
+                    className="w-full cursor-pointer"
                   >
                     <Image
                       src="/images/clients/CardPencilHold.jpg"
                       alt="Card Pencil Hold"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-contain"
+                      width={1200}
+                      height={900}
+                      className="w-full h-auto object-contain"
                     />
                   </Thumb>
                   <Thumb
@@ -215,64 +214,62 @@ const Page = () => {
                         "/images/clients/WritingCardPencilHold.jpg"
                       )
                     }
-                    className="w-full h-96 cursor-pointer"
+                    className="w-full cursor-pointer"
                   >
                     <Image
                       src="/images/clients/WritingCardPencilHold.jpg"
                       alt="Writing for Card Pencil Hold"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-contain"
+                      width={1200}
+                      height={900}
+                      className="w-full h-auto object-contain"
                     />
                   </Thumb>
                 </div>
 
-                {/* CardSitting with its writing */}
                 <div className="flex flex-col gap-4">
                   <Thumb
                     onClick={() =>
                       handleImageClick("/images/clients/CardSitting.jpg")
                     }
-                    className="w-full h-96 cursor-pointer"
+                    className="w-full cursor-pointer"
                   >
                     <Image
                       src="/images/clients/CardSitting.jpg"
                       alt="Card Sitting"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-contain"
+                      width={1200}
+                      height={900}
+                      className="w-full h-auto object-contain"
                     />
                   </Thumb>
                   <Thumb
                     onClick={() =>
                       handleImageClick("/images/clients/WritingCardSitting.jpg")
                     }
-                    className="w-full h-96 cursor-pointer"
+                    className="w-full cursor-pointer"
                   >
                     <Image
                       src="/images/clients/WritingCardSitting.jpg"
                       alt="Writing for Card Sitting"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-contain"
+                      width={1200}
+                      height={900}
+                      className="w-full h-auto object-contain"
                     />
                   </Thumb>
                 </div>
 
-                {/* CoverBoxBack with FrontDisplayCoverCard */}
                 <div className="flex flex-col gap-4">
                   <Thumb
                     onClick={() =>
                       handleImageClick("/images/clients/CoverBoxBack.jpg")
                     }
-                    className="w-full h-96 cursor-pointer"
+                    className="w-full cursor-pointer"
                   >
                     <Image
                       src="/images/clients/CoverBoxBack.jpg"
                       alt="Cover Box Back"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-contain"
+                      width={1200}
+                      height={900}
+                      className="w-full h-auto object-contain"
                     />
                   </Thumb>
                   <Thumb
@@ -281,14 +278,14 @@ const Page = () => {
                         "/images/clients/FrontDisplayCoverCard.jpg"
                       )
                     }
-                    className="w-full h-96 cursor-pointer"
+                    className="w-full cursor-pointer"
                   >
                     <Image
                       src="/images/clients/FrontDisplayCoverCard.jpg"
                       alt="Front Display Cover Card"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-contain"
+                      width={1200}
+                      height={900}
+                      className="w-full h-auto object-contain"
                     />
                   </Thumb>
                 </div>
@@ -300,7 +297,7 @@ const Page = () => {
           </>
         )}
 
-        {/* Village grid */}
+        {/* ========== VILLAGE GRID (preserve aspect) ========== */}
         {showVillageCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -308,14 +305,14 @@ const Page = () => {
                 <Thumb
                   key={card.src}
                   onClick={() => handleImageClick(card.src)}
-                  className="w-full h-96 cursor-pointer"
+                  className="w-full cursor-pointer"
                 >
                   <Image
                     src={card.src}
                     alt={card.alt}
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-contain"
+                    width={1200}
+                    height={900}
+                    className="w-full h-auto object-contain"
                   />
                 </Thumb>
               ))}
@@ -327,7 +324,7 @@ const Page = () => {
         )}
       </div>
 
-      {/* Modal */}
+      {/* ========== MODAL (solid backdrop; show full image) ========== */}
       {selectedImage && (
         <div
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
@@ -343,7 +340,6 @@ const Page = () => {
             className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[95vh] sm:max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Solid card so transparent PNGs don't show page behind */}
             <div className="bg-white dark:bg-neutral-100 rounded-lg shadow-xl">
               <Image
                 src={selectedImage}
