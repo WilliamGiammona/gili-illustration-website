@@ -41,11 +41,13 @@ const Page = () => {
     },
   ];
 
-  const isEthiopian = (src: string | null) =>
-    !!src &&
-    (src.includes("Village_one") ||
-      src.includes("Village_two") ||
-      src.includes("ethiopia"));
+  // --- Ethiopia modal routing (ONLY affects the modal) ---
+  // PNGs (Village 1/2) -> edge-to-edge transparent modal (no white gutters)
+  const isEthiopiaVillage = (src: string | null) =>
+    !!src && /\/(Village_one\.png|Village_two\.png)$/i.test(src);
+  // JPG finale -> white card so it looks identical in light & dark modes
+  const isEthiopiaFinale = (src: string | null) =>
+    !!src && /\/everybody_ethiopia_finale\.jpg$/i.test(src);
 
   const handleDaughterImageClick = () => {
     setShowDaughterCards(true);
@@ -129,7 +131,7 @@ const Page = () => {
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
 
-            {/* 3) NEW Village set (ONLY this tile gets a light backdrop for dark mode) */}
+            {/* 3) NEW Village set (UNCHANGED) */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleVillageCardClick}
@@ -286,7 +288,7 @@ const Page = () => {
           </>
         )}
 
-        {/* NEW: Village grid */}
+        {/* NEW: Village grid (UNCHANGED) */}
         {showVillageCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -294,14 +296,12 @@ const Page = () => {
                 <div
                   key={card.src}
                   onClick={() => handleImageClick(card.src)}
-                  // aspect box (no fixed height), light bg only for Ethiopia tiles
                   className="relative w-full aspect-[4/3] cursor-pointer bg-white dark:bg-neutral-100 ring-1 ring-black/10 dark:ring-white/10 rounded-lg overflow-hidden"
                 >
                   <Image
                     src={card.src}
                     alt={card.alt}
                     fill
-                    // preserve proportions, no crop
                     className="object-contain transition-transform hover:scale-105"
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     priority={false}
@@ -316,13 +316,13 @@ const Page = () => {
         )}
       </div>
 
-      {/* Modal */}
+      {/* Modal — ONLY CHANGES APPLY HERE */}
       {selectedImage && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
-          {/* VISUAL spinner chip with semi-transparent backdrop */}
+          {/* Spinner chip */}
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="rounded-xl px-4 py-3 bg-white/85 dark:bg-black/70 shadow-xl ring-1 ring-black/10 dark:ring-white/10">
@@ -331,15 +331,35 @@ const Page = () => {
             </div>
           )}
 
-          <div
-            className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[95vh] sm:max-h-[90vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Only wrap Ethiopian images with a solid card to avoid transparency issues */}
-            {isEthiopian(selectedImage) ? (
+          {isEthiopiaVillage(selectedImage) ? (
+            /* ETHIOPIA PNGs: transparent, edge-to-edge (no white gutters) */
+            <div
+              className="relative w-[min(95vw,1200px)] h-[90vh] rounded-lg shadow-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={selectedImage}
+                alt="Selected illustration"
+                fill
+                className="object-contain"
+                onLoad={() => setIsLoading(false)}
+              />
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+          ) : isEthiopiaFinale(selectedImage) ? (
+            /* ETHIOPIA JPG finale: show on a white card so it looks identical in light & dark */
+            <div
+              className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[95vh] sm:max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="bg-white rounded-lg shadow-xl">
                 <Image
-                  src={selectedImage as string}
+                  src={selectedImage}
                   alt="Selected illustration"
                   width={1200}
                   height={800}
@@ -347,7 +367,19 @@ const Page = () => {
                   onLoad={() => setIsLoading(false)}
                 />
               </div>
-            ) : (
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+          ) : (
+            /* EVERYTHING ELSE: original modal */
+            <div
+              className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[95vh] sm:max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Image
                 src={selectedImage}
                 alt="Selected illustration"
@@ -356,15 +388,14 @@ const Page = () => {
                 className="rounded-lg shadow-xl object-contain max-h-[90vh]"
                 onLoad={() => setIsLoading(false)}
               />
-            )}
-
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
-            >
-              ✕
-            </button>
-          </div>
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
