@@ -286,7 +286,7 @@ const Page = () => {
           </>
         )}
 
-        {/* NEW: Village grid (ONLY these tiles get the light backdrop) */}
+        {/* NEW: Village grid */}
         {showVillageCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -294,14 +294,17 @@ const Page = () => {
                 <div
                   key={card.src}
                   onClick={() => handleImageClick(card.src)}
-                  className="w-full h-96 cursor-pointer bg-white dark:bg-neutral-100 ring-1 ring-black/10 dark:ring-white/10 rounded-lg"
+                  // aspect box (no fixed height), light bg only for Ethiopia tiles
+                  className="relative w-full aspect-[4/3] cursor-pointer bg-white dark:bg-neutral-100 ring-1 ring-black/10 dark:ring-white/10 rounded-lg overflow-hidden"
                 >
                   <Image
                     src={card.src}
                     alt={card.alt}
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg w-full h-full object-contain transition-transform hover:scale-105"
+                    fill
+                    // preserve proportions, no crop
+                    className="object-contain transition-transform hover:scale-105"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    priority={false}
                   />
                 </div>
               ))}
