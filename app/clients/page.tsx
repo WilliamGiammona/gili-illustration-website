@@ -129,7 +129,7 @@ const Page = () => {
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
 
-            {/* 3) Village set (ONLY THIS TILE gets a light backdrop for dark mode) */}
+            {/* 3) NEW Village set (ONLY this tile gets a light backdrop for dark mode) */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleVillageCardClick}
@@ -286,7 +286,7 @@ const Page = () => {
           </>
         )}
 
-        {/* NEW: Village grid (ONLY THESE tiles get the light backdrop) */}
+        {/* NEW: Village grid (ONLY these tiles get the light backdrop) */}
         {showVillageCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -319,9 +319,12 @@ const Page = () => {
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
+          {/* VISUAL spinner chip with semi-transparent backdrop */}
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="rounded-xl px-4 py-3 bg-white/85 dark:bg-black/70 shadow-xl ring-1 ring-black/10 dark:ring-white/10">
+                <div className="animate-spin h-8 w-8 sm:h-10 sm:w-10 rounded-full border-2 border-black/30 dark:border-white/30 border-t-black dark:border-t-white"></div>
+              </div>
             </div>
           )}
 
