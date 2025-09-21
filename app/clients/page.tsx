@@ -41,6 +41,12 @@ const Page = () => {
     },
   ];
 
+  const isEthiopian = (src: string | null) =>
+    !!src &&
+    (src.includes("Village_one") ||
+      src.includes("Village_two") ||
+      src.includes("ethiopia"));
+
   const handleDaughterImageClick = () => {
     setShowDaughterCards(true);
     setInitialView(false);
@@ -88,7 +94,7 @@ const Page = () => {
       <div className="w-full px-4 sm:px-6 md:px-8 max-w-7xl">
         {initialView && (
           <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            {/* 1) Daughter set */}
+            {/* 1) Daughter set (UNCHANGED) */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleDaughterImageClick}
@@ -106,7 +112,7 @@ const Page = () => {
               <h3 className="text-lg font-medium">Liron Kol Rega</h3>
             </div>
 
-            {/* 2) Card/cover set */}
+            {/* 2) Card/cover set (UNCHANGED) */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleCoverCardClick}
@@ -123,11 +129,11 @@ const Page = () => {
               <h3 className="text-lg font-medium">Shahar Sinai</h3>
             </div>
 
-            {/* 3) NEW Village set */}
+            {/* 3) Village set (ONLY THIS TILE gets a light backdrop for dark mode) */}
             <div className="flex flex-col items-center gap-4">
               <div
                 onClick={handleVillageCardClick}
-                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer"
+                className="w-full sm:w-96 sm:h-96 md:h-[30rem] cursor-pointer bg-white dark:bg-neutral-100 ring-1 ring-black/10 dark:ring-white/10 rounded-lg"
               >
                 <Image
                   src="/images/clients/Village_one.png"
@@ -142,7 +148,7 @@ const Page = () => {
           </div>
         )}
 
-        {/* Daughter grid */}
+        {/* Daughter grid (UNCHANGED) */}
         {showDaughterCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -168,7 +174,7 @@ const Page = () => {
           </>
         )}
 
-        {/* Cover/lettering grid */}
+        {/* Cover/lettering grid (UNCHANGED) */}
         {showCoverCards && (
           <>
             <div className="flex flex-col gap-8">
@@ -280,7 +286,7 @@ const Page = () => {
           </>
         )}
 
-        {/* NEW: Village grid */}
+        {/* NEW: Village grid (ONLY THESE tiles get the light backdrop) */}
         {showVillageCards && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -288,7 +294,7 @@ const Page = () => {
                 <div
                   key={card.src}
                   onClick={() => handleImageClick(card.src)}
-                  className="w-full h-96 cursor-pointer"
+                  className="w-full h-96 cursor-pointer bg-white dark:bg-neutral-100 ring-1 ring-black/10 dark:ring-white/10 rounded-lg"
                 >
                   <Image
                     src={card.src}
@@ -323,14 +329,29 @@ const Page = () => {
             className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[95vh] sm:max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={selectedImage}
-              alt="Selected illustration"
-              width={1200}
-              height={800}
-              className="rounded-lg shadow-xl object-contain max-h-[90vh]"
-              onLoad={() => setIsLoading(false)}
-            />
+            {/* Only wrap Ethiopian images with a solid card to avoid transparency issues */}
+            {isEthiopian(selectedImage) ? (
+              <div className="bg-white rounded-lg shadow-xl">
+                <Image
+                  src={selectedImage as string}
+                  alt="Selected illustration"
+                  width={1200}
+                  height={800}
+                  className="rounded-lg object-contain max-h-[90vh]"
+                  onLoad={() => setIsLoading(false)}
+                />
+              </div>
+            ) : (
+              <Image
+                src={selectedImage}
+                alt="Selected illustration"
+                width={1200}
+                height={800}
+                className="rounded-lg shadow-xl object-contain max-h-[90vh]"
+                onLoad={() => setIsLoading(false)}
+              />
+            )}
+
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
