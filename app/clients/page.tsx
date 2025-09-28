@@ -115,7 +115,7 @@ const Page = () => {
                   priority
                 />
               </div>
-              <h3 className="text-lg font-medium">Liron Kol Rega</h3>
+              <h3 className="text-lg font-medium">אריאלה פסקו עובדיה</h3>
             </div>
 
             {/* 2) Card/cover set (UNCHANGED) */}
@@ -149,7 +149,7 @@ const Page = () => {
                   className="rounded-lg shadow-lg w-full h-full object-cover transition-transform hover:scale-105"
                 />
               </div>
-              <h3 className="text-lg font-medium">Liron Kol Rega</h3>
+              <h3 className="text-lg font-medium">אלמוורק יצחק</h3>
             </div>
           </div>
         )}
@@ -175,7 +175,7 @@ const Page = () => {
               ))}
             </div>
             <h2 className="text-2xl font-semibold text-center mt-4">
-              Liron Kol Rega
+              אריאלה פסקו עובדיה
             </h2>
           </>
         )}
@@ -318,7 +318,7 @@ const Page = () => {
               ))}
             </div>
             <h2 className="text-2xl font-semibold text-center mt-4">
-              Liron Kol Rega
+              אלמוורק יצחק
             </h2>
           </>
         )}
